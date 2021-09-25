@@ -44,20 +44,9 @@
 
             document.getElementById('togglePlay').onclick = function() {
               player.togglePlay();
+              document.getElementById("current").innerHTML = 'ready';
             };
             
-            player.getCurrentState().then(state => {
-              if (!state) {
-                console.error('User is not playing music through the Web Playback SDK');
-                return;
-              }
-
-              var current_track = state.track_window.current_track;
-              var next_track = state.track_window.next_tracks[0];
-
-              document.getElementById("current").innerHTML = current_track;
-              document.getElementById("next").innerHTML = next_track;
-            });
           
             player.addListener('player_state_changed', ({
               position,
