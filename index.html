@@ -58,6 +58,15 @@
               document.getElementById("current").innerHTML = current_track;
               document.getElementById("next").innerHTML = next_track;
             });
+          
+            player.addListener('player_state_changed', ({
+              position,
+              duration,
+              track_window: { current_track }
+            }) => {
+              document.getElementById("current").innerHTML = current_track + ' ' + position + '/' + duration;
+              document.getElementById("next").innerHTML = next_track;
+            });
 
             player.connect();
         }
