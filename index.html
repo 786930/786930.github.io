@@ -6,7 +6,10 @@
   <body>
     <h1>Spotify Web Playback SDK Quick Start</h1>
     <button id="togglePlay">Toggle Play</button>
-
+    <h2>Now Playing</h2>
+    <p id="current"></p>
+    <h2>Up Next</h2>
+    <p id="next"></p>
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script>
         window.onSpotifyWebPlaybackSDKReady = () => {
@@ -42,6 +45,19 @@
             document.getElementById('togglePlay').onclick = function() {
               player.togglePlay();
             };
+            
+            player.getCurrentState().then(state => {
+              if (!state) {
+                console.error('User is not playing music through the Web Playback SDK');
+                return;
+              }
+
+              var current_track = state.track_window.current_track;
+              var next_track = state.track_window.next_tracks[0];
+
+              document.getElementById("current").innerHTML = current_track;
+              document.getElementById("next").innerHTML = next_track;
+            });
 
             player.connect();
         }
